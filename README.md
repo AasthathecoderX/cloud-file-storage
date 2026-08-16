@@ -200,30 +200,13 @@ You can now upload, view, download, and delete files.
 
 ---
 
-# 📖 Detailed Setup Guide
 
-The complete step-by-step setup instructions are available in:
+## 📄 Documentation
 
-**`docs/SETUP_GUIDE.md`**
+For the complete implementation and AWS configuration instructions:
 
-The detailed guide covers everything from the beginning, including:
+### 👉 [Read the Detailed Setup Guide](docs/SETUP_GUIDE.md)
 
-- AWS account setup
-- S3 bucket creation
-- IAM configuration
-- Lambda creation
-- Lambda code deployment
-- API Gateway configuration
-- API routes
-- CORS configuration
-- Frontend configuration
-- Local testing with Boto3
-- API testing
-- End-to-end testing
-- Troubleshooting
-- Cleanup of AWS resources
-
-👉 **For a complete setup, follow the [Detailed Setup Guide](docs/SETUP_GUIDE.md).**
 
 ---
 
@@ -383,10 +366,4 @@ Cloud Computing Lab Mini-Project
 
 Dayananda Sagar College of Engineering
 
----
 
-## 📄 Documentation
-
-For the complete implementation and AWS configuration instructions:
-
-### 👉 [Read the Detailed Setup Guide](docs/SETUP_GUIDE.md)
