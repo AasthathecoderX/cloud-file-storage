@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud File Storage</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Cloud File Storage</h1>
+            <p>Securely store and manage your files in the cloud</p>
+        </header>
+
+        <section class="upload-section">
+
+            <h2>Upload File</h2>
+
+            <input type="file" id="fileInput">
+
+            <button id="uploadButton">
+                Upload File
+            </button>
+
+            <p id="uploadStatus"></p>
+
+        </section>
+
+        <section class="files-section">
+
+            <h2>My Files</h2>
+
+            <button id="refreshButton">
+                Refresh Files
+            </button>
+
+            <div id="fileList">
+                <p>Loading files...</p>
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
