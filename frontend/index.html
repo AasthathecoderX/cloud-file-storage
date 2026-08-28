@@ -1,53 +1,435 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud File Storage</title>
+
+    <title>CloudVault | Cloud File Storage</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- =====================================================
+         TOP NAVIGATION
+    ====================================================== -->
 
-        <header>
-            <h1>Cloud File Storage</h1>
-            <p>Securely store and manage your files in the cloud</p>
-        </header>
+    <nav class="navbar">
 
-        <section class="upload-section">
+        <div class="brand">
 
-            <h2>Upload File</h2>
+            <div class="brand-icon">
+                ☁
+            </div>
 
-            <input type="file" id="fileInput">
+            <div>
+                <div class="brand-name">
+                    CloudVault
+                </div>
 
-            <button id="uploadButton">
-                Upload File
-            </button>
+                <div class="brand-subtitle">
+                    Cloud File Storage
+                </div>
+            </div>
 
-            <p id="uploadStatus"></p>
+        </div>
 
-        </section>
+        <div class="cloud-status">
 
-        <section class="files-section">
+            <span class="status-dot"></span>
 
-            <h2>My Files</h2>
+            <span>
+                Cloud Connected
+            </span>
 
-            <button id="refreshButton">
-                Refresh Files
-            </button>
+        </div>
 
-            <div id="fileList">
-                <p>Loading files...</p>
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================================
+             HERO SECTION
+        ================================================== -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+                    ☁ AWS Cloud Storage
+                </div>
+
+                <h1>
+                    Your files,
+                    <span>securely in the cloud.</span>
+                </h1>
+
+                <p>
+                    Upload, manage, download and delete your files
+                    using a serverless cloud storage platform.
+                </p>
+
+            </div>
+
+            <div class="hero-cloud">
+                ☁
             </div>
 
         </section>
 
-    </div>
+
+        <!-- =================================================
+             STORAGE STATISTICS
+        ================================================== -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📁
+                </div>
+
+                <div>
+
+                    <span class="stat-label">
+                        Total Files
+                    </span>
+
+                    <strong id="fileCount">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ☁
+                </div>
+
+                <div>
+
+                    <span class="stat-label">
+                        Storage
+                    </span>
+
+                    <strong id="storageUsed">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔐
+                </div>
+
+                <div>
+
+                    <span class="stat-label">
+                        Storage Type
+                    </span>
+
+                    <strong>
+                        Amazon S3
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             UPLOAD SECTION
+        ================================================== -->
+
+        <section class="upload-card">
+
+            <div class="section-header">
+
+                <div>
+
+                    <div class="section-icon upload-icon">
+                        ↑
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h2>
+                        Upload a file
+                    </h2>
+
+                    <p>
+                        Select a file to securely upload it to
+                        your cloud storage.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="upload-area">
+
+                <div class="upload-cloud-icon">
+                    ☁
+                </div>
+
+                <h3>
+                    Choose a file to upload
+                </h3>
+
+                <p>
+                    Your file will be stored securely in Amazon S3
+                </p>
+
+                <label
+                    for="fileInput"
+                    class="choose-file-button"
+                >
+                    Choose File
+                </label>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                >
+
+                <p
+                    id="selectedFile"
+                    class="selected-file"
+                ></p>
+
+            </div>
+
+
+            <div class="upload-footer">
+
+                <p id="uploadStatus"></p>
+
+                <button
+                    id="uploadButton"
+                    class="primary-button"
+                >
+                    <span>↑</span>
+                    Upload File
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FILES SECTION
+        ================================================== -->
+
+        <section class="files-card">
+
+            <div class="files-header">
+
+                <div>
+
+                    <h2>
+                        My Files
+                    </h2>
+
+                    <p>
+                        Files currently stored in your cloud storage.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="refreshButton"
+                    class="refresh-button"
+                >
+                    ↻
+                    Refresh
+                </button>
+
+            </div>
+
+
+            <!-- File list -->
+
+            <div id="fileList">
+
+                <div class="loading-state">
+
+                    <div class="loading-spinner"></div>
+
+                    <p>
+                        Loading files...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ARCHITECTURE INFORMATION
+        ================================================== -->
+
+        <section class="architecture-card">
+
+            <div class="architecture-header">
+
+                <div class="section-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h2>
+                        Serverless Architecture
+                    </h2>
+
+                    <p>
+                        This application is powered by AWS cloud services.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="architecture-flow">
+
+                <div class="architecture-node">
+
+                    <div class="node-icon">
+                        🌐
+                    </div>
+
+                    <strong>
+                        Browser
+                    </strong>
+
+                    <span>
+                        HTML / CSS / JS
+                    </span>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-node">
+
+                    <div class="node-icon">
+                        🔗
+                    </div>
+
+                    <strong>
+                        API Gateway
+                    </strong>
+
+                    <span>
+                        HTTP API
+                    </span>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-node">
+
+                    <div class="node-icon">
+                        λ
+                    </div>
+
+                    <strong>
+                        Lambda
+                    </strong>
+
+                    <span>
+                        Python + Boto3
+                    </span>
+
+                </div>
+
+
+                <div class="flow-arrow">
+                    →
+                </div>
+
+
+                <div class="architecture-node">
+
+                    <div class="node-icon">
+                        ☁
+                    </div>
+
+                    <strong>
+                        Amazon S3
+                    </strong>
+
+                    <span>
+                        Object Storage
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <p>
+            CloudVault • Cloud Computing Mini Project
+        </p>
+
+        <span>
+            Powered by Amazon Web Services
+        </span>
+
+    </footer>
+
 
     <script src="script.js"></script>
 
 </body>
+
 </html>

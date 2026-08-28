@@ -1,3 +1,4 @@
+
 // ======================================================
 // Cloud File Storage
 // ======================================================
@@ -27,6 +28,17 @@ const fileList =
 const refreshButton =
     document.getElementById("refreshButton");
 
+// New dashboard statistics
+const fileCount =
+    document.getElementById("fileCount");
+
+const storageUsed =
+    document.getElementById("storageUsed");
+
+// Selected file name
+const selectedFile =
+    document.getElementById("selectedFile");
+
 
 // ======================================================
 // Load files when page opens
@@ -55,6 +67,31 @@ uploadButton.addEventListener(
 refreshButton.addEventListener(
     "click",
     loadFiles
+);
+
+
+// ======================================================
+// File selection
+// ======================================================
+
+fileInput.addEventListener(
+    "change",
+    () => {
+
+        const file =
+            fileInput.files[0];
+
+        if (file) {
+
+            selectedFile.textContent =
+                `Selected: ${file.name}`;
+
+        } else {
+
+            selectedFile.textContent = "";
+
+        }
+    }
 );
 
 
@@ -98,6 +135,15 @@ async function loadFiles() {
                 Failed to load files.
             </p>
         `;
+
+        // Reset statistics if files cannot be loaded
+        if (fileCount) {
+            fileCount.textContent = "0";
+        }
+
+        if (storageUsed) {
+            storageUsed.textContent = "0 Bytes";
+        }
     }
 }
 
@@ -107,6 +153,34 @@ async function loadFiles() {
 // ======================================================
 
 function displayFiles(files) {
+
+    // ==================================================
+    // Update dashboard statistics
+    // ==================================================
+
+    if (fileCount) {
+
+        fileCount.textContent =
+            files.length;
+    }
+
+    const totalBytes =
+        files.reduce(
+            (total, file) =>
+                total + (Number(file.size) || 0),
+            0
+        );
+
+    if (storageUsed) {
+
+        storageUsed.textContent =
+            formatFileSize(totalBytes);
+    }
+
+
+    // ==================================================
+    // Existing empty-state functionality
+    // ==================================================
 
     if (files.length === 0) {
 
@@ -235,6 +309,13 @@ async function uploadFile() {
 
         fileInput.value = "";
 
+        // Clear selected filename
+        if (selectedFile) {
+
+            selectedFile.textContent = "";
+        }
+
+        // Reload files so statistics are updated
         await loadFiles();
 
     } catch (error) {
@@ -242,7 +323,8 @@ async function uploadFile() {
         console.error(error);
 
         uploadStatus.textContent =
-            error.message || "Upload failed.";
+            error.message ||
+            "Upload failed.";
 
         uploadStatus.className =
             "error";
@@ -301,13 +383,19 @@ async function downloadFile(
 // Delete file
 // ======================================================
 
-async function deleteFile(encodedFileName) {
+async function deleteFile(
+    encodedFileName
+) {
 
     const fileName =
-        decodeURIComponent(encodedFileName);
+        decodeURIComponent(
+            encodedFileName
+        );
 
     const confirmed =
-        confirm(`Delete "${fileName}"?`);
+        confirm(
+            `Delete "${fileName}"?`
+        );
 
     if (!confirmed) {
         return;
@@ -315,42 +403,62 @@ async function deleteFile(encodedFileName) {
 
     try {
 
-        const response = await fetch(
-            `${API_URL}/files?filename=${encodeURIComponent(fileName)}`,
-            {
-                method: "DELETE"
-            }
+        const response =
+            await fetch(
+                `${API_URL}/files?filename=${encodeURIComponent(fileName)}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+        console.log(
+            "DELETE status:",
+            response.status
         );
 
-        console.log("DELETE status:", response.status);
+        const data =
+            await response.json();
 
-        const data = await response.json();
-
-        console.log("DELETE response:", data);
+        console.log(
+            "DELETE response:",
+            data
+        );
 
         // If the server actually deleted the file,
         // refresh the list.
         if (data.success === true) {
 
-            alert(`"${fileName}" deleted successfully.`);
+            alert(
+                `"${fileName}" deleted successfully.`
+            );
 
+            // Reload files so file count and
+            // storage usage are updated
             await loadFiles();
 
             return;
         }
 
         throw new Error(
-            data.message || "Delete failed"
+            data.message ||
+            "Delete failed"
         );
 
     } catch (error) {
 
-        console.error("DELETE ERROR:", error);
+        console.error(
+            "DELETE ERROR:",
+            error
+        );
 
         // Only show the error if the request genuinely failed.
-        alert(`Unable to delete "${fileName}".`);
+        alert(
+            `Unable to delete "${fileName}".`
+        );
     }
 }
+
+
 // ======================================================
 // Format file size
 // ======================================================
